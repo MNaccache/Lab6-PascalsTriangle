@@ -10,15 +10,15 @@ public class RecursivePascal { //test class, all in one file because having a fi
 
 class ManagePascal {
     public static void newCalculate (int length) { //just formats the start of the triangle so the recursion works well
-        length++; //I need to up the length for weird reasons that even I do not understand. This just gives us the right number of rows in the end
         int[] array = {1}; //makes the first array, it's just the very tip of the triangle
+        printTest(length, 1, array);
         calculate(length, 2, array); //here's how tall the triangle needs to be, here's the current row, here's what the last row looks like
     }
 
     public static void calculate (int length, int count, int[] array) { //recursivly does each row of the triangle
         int[] newArray = new int[count]; //a new array to put the calculated values in
 
-        for (int i = 0; i < count - 1; i++) { //goes through the array and does math into the new array
+        for (int i = 0; i < count; i++) { //goes through the array and does math into the new array
             newArray[i] = math(array, count, i);
         }
 
@@ -31,12 +31,20 @@ class ManagePascal {
 
     public static int math (int[] array, int count, int number) { //this does the actual calculations for the arrays
         int addOne = 0;
+        int addTwo = 0;
+
         if (number < 1) { //this is so it doesn't throw an error about -1 not being an index in an array
             addOne = 0;
         } else {
             addOne = array[number - 1];
         }
-        int addTwo = array[number];
+
+        if (number >= count - 1) { //this is so it doesn't throw an error about the old array having one less than the current array
+            addTwo = 0;
+        } else {
+            addTwo = array[number];
+        }
+
         int sum = addOne + addTwo; //adds the two numbers above it together 
 
         return sum;
@@ -47,7 +55,7 @@ class ManagePascal {
             System.out.print("   ");
         }
         String printable; //making the variable outside the for loop so the computer doesn't yell at me
-        for (int j = 0; j < array.length - 1; j++) { //prints out each thing of an array
+        for (int j = 0; j < array.length; j++) { //prints out each thing of an array
             printable = array[j] + "            "; //so it stays at a consistant length
             printable = printable.substring(0, 6);
             System.out.print(printable);
